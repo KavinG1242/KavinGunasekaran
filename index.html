@@ -116,3 +116,161 @@
                 <span className="text-gray-400">•</span>
                 <a className="inline-block px-4 py-2 rounded-xl border border-gray-300 hover:bg-gray-50"
                    href="./assets/Kavin_Gunasekaran_CV.pdf" target="_blank" rel="noopener noreferrer">
+                   Download CV
+                </a>
+              </div>
+              <p className="text-xs text-gray-400 mt-3">© <span id="year"></span> Kavin Gunasekaran</p>
+            </footer>
+          </div>
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<PapersPortfolio />);
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const y = document.getElementById("year");
+      if (y) y.textContent = new Date().getFullYear();
+    });
+  </script>
+</body>
+</html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Kavin Gunasekaran — Papers & Projects</title>
+
+  <!-- Tailwind + React + Babel (no build tools needed) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState } = React;
+
+    function PapersPortfolio() {
+      const [search, setSearch] = useState('');
+
+      const papers = [
+        {
+          title: 'Flow-Induced Vibration Testing for Small Modular Reactors (SMRs)',
+          description: 'Ongoing ENGG 41XX design project focusing on two-phase flow vibrations in SMR heat exchangers using PID control (LabVIEW + STM32).',
+          year: '2025–2026',
+          link: './files/DesignProposal.pdf',
+          tags: ['SMR', 'PID', 'LabVIEW', 'Control Systems']
+        },
+        {
+          title: 'Power-Assisted Gurney for Paramedic Ergonomics',
+          description: 'ENGG 3100 simulation-based design to reduce musculoskeletal strain using STM32 control logic and MATLAB/SolidWorks analysis.',
+          year: '2025',
+          link: './files/Power-Assisted Gurney for Paramedic Ergonomics.pdf',
+          tags: ['Ergonomics', 'STM32', 'Simulation', 'Design']
+        },
+        {
+          title: 'Professor Availability System (Wireless Sensor Network)',
+          description: 'ENGG 3050 IoT system with ESP32/Arduino, ESP-NOW comms, and motion-triggered LCD for real-time status.',
+          year: '2024',
+          link: './files/Professor Availability System (Wireless Sensor Network).pdf',
+          tags: ['IoT', 'ESP32', 'Embedded', 'WSN']
+        },
+        {
+          title: 'Post-Quantum Cryptography: The Threats of Quantum Computing to Security',
+          description: 'ENGG 4560 research paper on PQC algorithms and QKD-based hybrid approaches for quantum-safe communications.',
+          year: '2025',
+          link: './files/Post-Quantum Cryptography The Threats of Quantum Computing to Security.pdf',
+          tags: ['Cryptography', 'Quantum', 'Security', 'Research']
+        }
+      ];
+
+      const filtered = papers.filter(p =>
+        p.title.toLowerCase().includes(search.toLowerCase()) ||
+        p.description.toLowerCase().includes(search.toLowerCase()) ||
+        p.tags.some(t => t.toLowerCase().includes(search.toLowerCase()))
+      );
+
+      return (
+        <div className="p-6">
+          <div className="max-w-5xl mx-auto">
+            <header className="mb-6">
+              <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
+                Kavin Gunasekaran — Papers & Projects
+              </h1>
+              <p className="text-gray-600 mt-2">
+                Browse and download my academic papers and engineering design projects.
+              </p>
+            </header>
+
+            <div className="mb-6">
+              <input
+                type="text"
+                className="w-full md:w-1/2 border border-gray-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                placeholder="Search papers or tags..."
+                value={search}
+                onChange={e => setSearch(e.target.value)}
+              />
+            </div>
+
+            <section className="grid gap-6 sm:grid-cols-2">
+              {filtered.map((p, i) => (
+                <div key={i} className="rounded-2xl shadow-md bg-white border border-gray-100 overflow-hidden hover:shadow-lg transition">
+                  <div className="p-5">
+                    <h2 className="text-xl font-semibold text-gray-800">{p.title}</h2>
+                    <p className="text-sm text-gray-500 mb-2">{p.year}</p>
+                    <p className="text-gray-700 mb-4">{p.description}</p>
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {p.tags.map((t, j) => (
+                        <span key={j} className="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded-full">{t}</span>
+                      ))}
+                    </div>
+                    <a href={p.link} target="_blank" rel="noopener noreferrer"
+                       className="inline-block px-4 py-2 rounded-xl border border-gray-300 hover:bg-gray-50">
+                      View / Download
+                    </a>
+                  </div>
+                </div>
+              ))}
+
+              {filtered.length === 0 && (
+                <div className="text-gray-600">No results. Try another search.</div>
+              )}
+            </section>
+
+            <footer className="mt-12 border-t pt-6">
+              <h3 className="text-lg font-semibold text-gray-800 mb-3">Contact & CV</h3>
+              <div className="flex flex-wrap items-center gap-3 text-sm">
+                <a className="underline" href="mailto:kgunasek@uoguelph.ca">kgunasek@uoguelph.ca</a>
+                <span className="text-gray-400">•</span>
+                <a className="underline" href="https://www.linkedin.com/in/kavin-gunasekaran-201435252/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                <span className="text-gray-400">•</span>
+                <a className="underline" href="https://github.com/KavinG1242" target="_blank" rel="noopener noreferrer">GitHub</a>
+                <span className="text-gray-400">•</span>
+                <a className="inline-block px-4 py-2 rounded-xl border border-gray-300 hover:bg-gray-50"
+                   href="./assets/Kavin_Gunasekaran_CV.pdf" target="_blank" rel="noopener noreferrer">
+                   Download CV
+                </a>
+              </div>
+              <p className="text-xs text-gray-400 mt-3">© <span id="year"></span> Kavin Gunasekaran</p>
+            </footer>
+          </div>
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<PapersPortfolio />);
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const y = document.getElementById("year");
+      if (y) y.textContent = new Date().getFullYear();
+    });
+  </script>
+</body>
+</html>
